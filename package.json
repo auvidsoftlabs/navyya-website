@@ -55,7 +55,7 @@
       },
       "scripts": {
             "dev": "vite",
-            "build": "vite build",
-	    "deploy": "gh-pages -d build"
+            "build": "vite build && cp -r dist/* docs/",
+            "deploy": "npm run build && git add docs && git commit -m 'Update docs' && git push"
       }
 }
