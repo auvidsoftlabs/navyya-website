@@ -54,6 +54,7 @@
       },
       "scripts": {
             "dev": "vite",
-            "build": "vite build"
+            "build": "vite build && echo www.navyya.com > docs/CNAME",
+            "deploy": "npm run build && git add docs && git commit -m 'Update build' && git push origin main"
       }
 }
