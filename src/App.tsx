@@ -15,6 +15,7 @@ import { PromoVideoDialog } from "./components/PromoVideoDialog";
 export default function App() {
   const [isRequestAccessOpen, setIsRequestAccessOpen] = useState(false);
   const [isPromoVideoOpen, setIsPromoVideoOpen] = useState(false);
+  const [shouldAutoplayPromo, setShouldAutoplayPromo] = useState(false);
 
   const handleOpenRequestAccess = () => {
     setIsRequestAccessOpen(true);
@@ -24,10 +25,14 @@ export default function App() {
   };
 
   const handleOpenPromoVideo = () => {
+    setShouldAutoplayPromo(true);
     setIsPromoVideoOpen(true);
   };
   const handlePromoVideoChange = (open: boolean) => {
     setIsPromoVideoOpen(open);
+    if (!open) {
+      setShouldAutoplayPromo(false);
+    }
   };
 
   return (
@@ -55,6 +60,7 @@ export default function App() {
       <PromoVideoDialog
         open={isPromoVideoOpen}
         onOpenChange={handlePromoVideoChange}
+        shouldAutoplay={shouldAutoplayPromo}
       />
     </div>
   );

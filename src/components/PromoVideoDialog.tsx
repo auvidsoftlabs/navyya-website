@@ -5,34 +5,43 @@ import promoVideo from "../assets/promo.mp4";
 type PromoVideoDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  shouldAutoplay: boolean;
 };
 
-export function PromoVideoDialog({ open, onOpenChange }: PromoVideoDialogProps) {
+export function PromoVideoDialog({
+  open,
+  onOpenChange,
+  shouldAutoplay,
+}: PromoVideoDialogProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) {
-      return;
-    }
+    if (!video) return;
 
     if (open) {
       const playVideo = () => {
         video.currentTime = 0;
-        video.muted = false;
-        video
-          .play()
-          .catch(() => {
-            // Autoplay might still be blocked; user can press play manually.
-          });
+        if (shouldAutoplay) {
+          video.muted = true;
+          video
+            .play()
+            .then(() => {
+              // allow user to unmute after autoplay
+              video.muted = false;
+            })
+            .catch(() => {
+              // autoplay blocked; keep controls so user can play manually
+            });
+        }
       };
 
-      const timer = window.setTimeout(playVideo, 50);
+      const timer = window.setTimeout(playVideo, 100);
       return () => window.clearTimeout(timer);
     }
 
     video.pause();
-  }, [open]);
+  }, [open, shouldAutoplay]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
