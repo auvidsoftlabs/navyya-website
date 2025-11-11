@@ -1,4 +1,21 @@
 /// <reference types="vite/client" />
 
-declare module "*.mp4";
-declare module "*.jpeg";
+declare module "*.mp4" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.jpeg" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.jpg" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.jpeg?url" {
+  const src: string;
+  export default src;
+}
