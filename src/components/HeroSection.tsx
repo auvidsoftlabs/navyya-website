@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Sparkles, Play } from "lucide-react";
+import heroImageUrl from "../assets/hero.jpeg?url";
 
 type HeroSectionProps = {
   onRequestAccess: () => void;
@@ -72,9 +73,9 @@ export function HeroSection({
             <div className="absolute inset-0 bg-primary/10 rounded-3xl blur-3xl animate-pulse"></div>
             <div className="relative">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1758691736591-5bf31a5d0dea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBjb25mZXJlbmNlJTIwcm9vbSUyMHByZXNlbnRhdGlvbiUyMHNjcmVlbnxlbnwxfHx8fDE3NjA3Nzg0NTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src={heroImageUrl}
                 alt="AV Room Design Visualization"
-                className="relative w-full rounded-3xl shadow-2xl border border-gray-100"
+                className="relative w-full rounded-3xl shadow-2xl border border-gray-100 object-cover"
               />
               {/* Floating elements */}
               <div
