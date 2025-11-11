@@ -1,5 +1,5 @@
 import { Linkedin, Youtube, Twitter, MapPin, Phone, Mail } from "lucide-react";
-import logo from "figma:asset/8ca8915d9af4ec6bd10bd10921bec0c2f07a9259.png";
+const logoUrl = new URL("../assets/logo.svg", import.meta.url).href;
 
 export function Footer() {
   return (
@@ -7,7 +7,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div className="space-y-4">
-            <img src={logo} alt="Navyya Logo" className="h-10" />
+            <img src={logoUrl} alt="Navyya Logo" className="h-10" />
             <p className="text-sm text-gray-600 leading-relaxed">
               Design professional AV rooms smarter and faster with Navyya — AI-powered planning, 3D visualization, and standards-ready layouts at your fingertips.
             </p>

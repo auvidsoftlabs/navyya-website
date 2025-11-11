@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Header } from "./components/Header";
 import { HeroSection } from "./components/HeroSection";
 import { TrustedBy } from "./components/TrustedBy";
@@ -8,20 +9,53 @@ import { WhoCanUse } from "./components/WhoCanUse";
 import { WhatSetsApart } from "./components/WhatSetsApart";
 import { FinalCTA } from "./components/FinalCTA";
 import { Footer } from "./components/Footer";
+import { RequestAccessForm } from "./components/RequestAccessForm";
+import { PromoVideoDialog } from "./components/PromoVideoDialog";
 
 export default function App() {
+  const [isRequestAccessOpen, setIsRequestAccessOpen] = useState(false);
+  const [isPromoVideoOpen, setIsPromoVideoOpen] = useState(false);
+
+  const handleOpenRequestAccess = () => {
+    setIsRequestAccessOpen(true);
+  };
+  const handleRequestAccessChange = (open: boolean) => {
+    setIsRequestAccessOpen(open);
+  };
+
+  const handleOpenPromoVideo = () => {
+    setIsPromoVideoOpen(true);
+  };
+  const handlePromoVideoChange = (open: boolean) => {
+    setIsPromoVideoOpen(open);
+  };
+
   return (
     <div className="w-full">
-      <Header />
-      <HeroSection />
+      <Header onRequestAccess={handleOpenRequestAccess} />
+      <HeroSection
+        onRequestAccess={handleOpenRequestAccess}
+        onSeeHowItWorks={handleOpenPromoVideo}
+      />
       <TrustedBy />
       <WhyNavyya />
       <KeyFeatures />
       <HowItWorks />
       <WhoCanUse />
       <WhatSetsApart />
-      <FinalCTA />
+      <FinalCTA
+        onRequestAccess={handleOpenRequestAccess}
+        onSeeHowItWorks={handleOpenPromoVideo}
+      />
       <Footer />
+      <RequestAccessForm
+        open={isRequestAccessOpen}
+        onOpenChange={handleRequestAccessChange}
+      />
+      <PromoVideoDialog
+        open={isPromoVideoOpen}
+        onOpenChange={handlePromoVideoChange}
+      />
     </div>
   );
 }

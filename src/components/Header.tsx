@@ -1,9 +1,13 @@
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
-import logo from "figma:asset/8ca8915d9af4ec6bd10bd10921bec0c2f07a9259.png";
+const logoUrl = new URL("../assets/logo.svg", import.meta.url).href;
 
-export function Header() {
+type HeaderProps = {
+  onRequestAccess: () => void;
+};
+
+export function Header({ onRequestAccess }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -24,7 +28,7 @@ export function Header() {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: "smooth",
       });
       setIsMobileMenuOpen(false);
     }
@@ -33,24 +37,22 @@ export function Header() {
   const navItems = [
     { label: "Features", id: "features" },
     { label: "How It Works", id: "how-it-works" },
-    { label: "Who Uses It", id: "who-can-use" }
+    { label: "Who Uses It", id: "who-can-use" },
   ];
 
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-white/80 backdrop-blur-lg shadow-sm" 
-          : "bg-transparent"
+        isScrolled ? "bg-white/80 backdrop-blur-lg shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-5">
         <div className="flex items-center justify-between">
-          <button 
+          <button
             onClick={() => scrollToSection("hero")}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
-            <img src={logo} alt="Navyya Logo" className="h-10" />
+            <img src={logoUrl} alt="Navyya Logo" className="h-10" />
           </button>
 
           {/* Desktop Navigation */}
@@ -67,15 +69,15 @@ export function Header() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               onClick={() => scrollToSection("final-cta")}
               className="hover:bg-primary/10 hover:text-primary"
             >
               Contact
             </Button>
-            <Button 
-              onClick={() => scrollToSection("final-cta")}
+            <Button
+              onClick={onRequestAccess}
               className="bg-accent hover:bg-accent/90 rounded-full"
             >
               Request Access
@@ -107,8 +109,11 @@ export function Header() {
                 {item.label}
               </button>
             ))}
-            <Button 
-              onClick={() => scrollToSection("final-cta")}
+            <Button
+              onClick={() => {
+                onRequestAccess();
+                setIsMobileMenuOpen(false);
+              }}
               className="w-full bg-accent hover:bg-accent/90 rounded-full mt-4"
             >
               Request Access
